@@ -1,0 +1,251 @@
+import time
+import random 
+import os
+import sys
+
+options1 = ["a scream" , "some noise" , "someone screaming" , "some strange sounds"]
+sound = random.choice(options1)                                                        # adding randomness in the heard sounds
+
+options2 = ["family", "friends" , "colleagues" , "old friends"]
+people = random.choice(options2)                                     #adding randomness in the close peaple
+
+options3 = ["brother","father","cousin","uncle"]
+victim = random.choice(options3)                      #adding randomness in the kidnapped person
+
+options4 = ["kidnapped","killed","tortured"]      #adding randomness in the actions
+penalty = random.choice(options4)
+
+turns = 5
+
+def play_again():
+    python = sys.executable                       #function to restart the game if the user wants
+    os.execl(python, python, *sys.argv)
+
+def pause(scentence , h) :                
+     print(scentence)              #function to make a delay between two scentences
+     time.sleep(h)      
+
+def no_turns2(f):
+     if f == 0:
+         pause("You are out of moves",2)
+         print("You couldn't save your",victim)
+         time.sleep(2)
+         pause("GAME OVER",2)                            #function to show the lose condition when  the user is out of moves
+         user_input11 = input("Enter 1 to play again")
+         if user_input11 == "1":
+             play_again()
+
+def no_turns(i):
+     if i == 0 :
+         print("You couldn't save your",victim)
+         time.sleep(2)
+         pause("GAME OVER",2)                            #function to show the lose condition when  the user choose a specific choice
+         user_input4 = input("Enter 1 to play again")
+         if user_input4 == "1":
+             play_again()
+
+
+def follow_noise(h):
+    pause("You follow the noise with the police and succeeded in finding the kidnapper's place",2)
+    print("The police broke into the place , you see your",victim,"shackled")
+    time.sleep(2)
+    pause("Suddenly , a huge fire broke out around him, it seems to be due to burning of gasoline",2)
+    pause("You find a hose and a fire extinguisher but you can use only one",2)
+    pause("Enter 1 to choose the fire extinguisher",2)
+    pause("Enter 2 to choose the hose ",2)
+    pause("What would you choose ?",2)
+    while True:
+         user_input9 = input("(Enter 1 or 2)")                             #function to show what will happen if the user follows the noise
+         if user_input9 == "1":
+             print("You successfuly saved your",victim)
+             time.sleep(2)
+             pause("He thanks you so much for you help",2)
+             pause("CONRATULATIONS , you won !",2)
+             pause("Do you want to play again ?",2)
+             user_input10 = input("Enter 1 to play again")
+             if user_input10 == "1":
+                 play_again()
+
+         elif user_input9 == "2":
+             print("Opposely , the water increases the fire and your",victim,"died in the fire")
+             time.sleep(2)
+             turns = 0
+             no_turns(turns)
+             time.sleep(2)
+             break
+         else:
+             pause("Invalid input",1)
+
+def no_respond(e):
+     pause("The criminal doesn't respond",2)
+     pause("What will you do now?",2)
+     pause("Enter 1 to give up",2)
+     pause("Enter 2 to follow the noise with the police",2)
+     pause("What will you do ?",2)
+     while True:
+         user_input8 = input("(Enter 1 or 2)")
+         if user_input8 == "1":
+             turns = 0                                              #function to show what will happen if the user chooses to call the criminal again
+             no_turns(turns)
+
+         elif user_input8 == "2":
+             turns = e - 1
+             no_turns2(turns)
+             print("Turns left :",turns)
+             time.sleep(2)
+             pause("While you were trying to call the criminal multiple of times ,",2)
+             print("He escaped with your",victim,"to an unknown place")
+             time.sleep(2)
+             turns = 0
+             no_turns(0)
+             break
+         else:
+             pause("Invalid input",1)
+
+
+def police(v):
+    pause("You called the police",2)
+    pause("You told them the address",2)
+    pause("They reached the address",2)
+    pause("It appears to be that the kidnapper gave you a wrong address to trap you",2)
+    pause("What will you do now?",2)
+    pause("Enter 1 to call the criminal again",2)
+    pause("Enter 2 to follow the noise with the police",2)
+    while True:
+         user_input7 = input("(Enter 1 or 2)")                  #function to show what will happen if the user chooses to call the police
+    
+         if user_input7 == "1":
+             turns = v - 1
+             print("Turns left:",turns)
+             time.sleep(2)
+             no_turns(turns)
+             no_respond(turns)
+
+         elif user_input7 == "2":
+             turns = v - 1 
+             no_turns(turns)
+             print("Turns left :",turns)
+             time.sleep(2)
+             follow_noise(turns)
+             break
+         else:
+             pause("Invalid input",1)
+
+
+def call(o):
+     print("You decided to tell this incident to your",victim)
+     time.sleep(2)
+     pause("You started calling him",2)
+     pause("A strange person answers",2)
+     print("It appears that the one who answered is the one who kidnapped your",victim)
+     time.sleep(2)
+     print("He told you that you have 3 days to collect 100,000 dollars and give it to him in order to leave your", victim)
+     time.sleep(2)
+     pause("He gave you the address and told you to deliver the money there",2)
+     pause("You have a choice between two actions",2)
+     pause("Enter 1 to ignore",2)
+     pause("Enter 2 to call the police ",2)
+     pause("What will you choose ?",2)
+     while True:                                                 #function to show what will happen if the user chooses to call someone for help
+         user_input6 = input("(Enter 1 or 2)")
+    
+         if user_input6 == "1":
+             turns = 0
+             no_turns(0)
+         elif user_input6 == "2":
+             turns = o - 1
+             no_turns(turns)
+             print("Turns left:", turns)
+             time.sleep(2)
+             police(turns)
+             break
+         else:
+             pause("Invalid input",1)
+
+
+def follow_sound(j):
+    pause("You followed the sound until you reached a deserted place",2)
+    pause("You think that if you entered alone , you would be kidnapped or tortured ",2)
+    pause("Enter 1 to enter alone",2)
+    print("Enter 2 to call your",victim)
+    time.sleep(2)
+    pause("What will you do ?",2)
+    while True:
+         user_input2 = input("(Enter 1 or 2)")
+                                                                   #function to show what happens when the user chooses following the sound
+         if user_input2 == "1":
+             pause("You entered alone",2)
+             pause("Your thought was true",2)
+             pause("The kidnapper saw you",2)
+             print("He",penalty,"you")
+             time.sleep(2)
+             turns = 0
+             no_turns(turns)
+         elif user_input2 == "2":
+             turns = j -1
+             print("Turns left :", turns)
+             call(turns)
+             break
+         else:
+             pause("Invalid input",1)
+
+             
+                
+def home(s):
+    pause("You returned home and kept thinking about the familiar sound you heard",2)
+    print("You decided to tell this incident to your",victim)
+    time.sleep(2)
+    pause("You started calling him",2)
+    pause("A strange person answers",2)
+    print("It appears that the one who answered is the one who kidnapped your",victim)
+    time.sleep(2)
+    print("He told you that you have 3 days to collect 100,000 dollars and give it to him in order to leave your", victim)
+    time.sleep(2)
+    pause("He gave you the address and told you to deliver the money there",2)
+    pause("You have a choice between two actions",2)
+    pause("Enter 1 to ignore",2)
+    pause("Enter 2 to call the police ",2)
+    pause("What will you choose ?",2)
+    while True:                                                                            #function to show what happens when turning home
+         user_input6 = input("(Enter 1 or 2)")
+    
+         if user_input6 == "1":
+             no_turns(0)
+         elif user_input6 == "2":
+             turns = s - 1
+             no_turns(turns)
+             time.sleep(2)
+             print("Turns left :", turns)
+             time.sleep(2)
+             police(turns)
+             break
+         else:
+             pause("Invalid input",1)
+
+
+print("You were walking in the street and you heard", sound)
+time.sleep(2)
+pause("You remember that it was spread in the news that there were many kidnapping cases",2)
+print("You believe that the sound is familiar and maybe one of your", people, "is being kidnapped and tortured")
+time.sleep(2)
+pause("You have two choices ",2)                                                                                  #describing for the user what is happening
+pause("Enter 1 to follow the sound",2)
+pause("Enter 2 to return home and think what would you do",2)
+pause("What will you do ? ",2)
+
+while True:
+    user_input = input("(Enter 1 or 2)")
+    
+    if user_input == "1":
+        turns = 4
+        print("Turns left:" , turns)          #Showing for the user the number of turns left
+        time.sleep(2)
+        follow_sound(turns)
+    elif user_input == "2":
+        turns = 4
+        print("Turns left :",turns)
+        no_turns(turns)
+        home(turns)
+        break
+    else:
+        pause("Invalid input",1)             #when an invalid input is sent by the user
